@@ -1,6 +1,11 @@
 import { Category } from '../domain/Category.js'
 import type { ICategoryRepository } from '../domain/interfaces/ICategoryRepository.js'
-import { CategoryDescription, CategoryId, CategoryName } from '../domain/object_values/index.js'
+import {
+  CategoryCreatedAt,
+  CategoryDescription,
+  CategoryId,
+  CategoryName,
+} from '../domain/object_values/index.js'
 import { ServiceContainer } from '../../shared/infrastructure/ServiceContainer.js'
 import { type TCategory, categorySchema } from './schemas/CategorySchema.js'
 import { CategoryIdNotFoundError } from '../domain/errors/index.js'
@@ -83,6 +88,7 @@ export class FileSystemCategoryRepository implements ICategoryRepository {
           new CategoryId(category.id),
           new CategoryName(category.name),
           new CategoryDescription(category.description as string),
+          new CategoryCreatedAt(category.createdAt),
         ),
     )
   }
