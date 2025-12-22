@@ -11,6 +11,12 @@ export class FileSystemCategoryRepository implements ICategoryRepository {
   async Add(category: Category): Promise<void> {
     const categories: Category[] = await this.ReadFile()
 
+    const lastCategory: Category | undefined = categories.pop()
+
+    const lastCategoryId: number = lastCategory ? lastCategory.id.value : 0
+
+    category.id = new CategoryId(lastCategoryId + 1)
+
     categories.push(category)
 
     const isAdded: boolean = await this._fileSystem.WriteFile(JSON.stringify(categories))
