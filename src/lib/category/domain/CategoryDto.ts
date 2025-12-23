@@ -1,10 +1,21 @@
+import {
+  CategoryDtoId,
+  CategoryDtoName,
+  CategoryDtoDescription,
+  CategoryDtoCreatedAt,
+} from './object_values/index.js'
 export class CategoryDto {
-  id: number
-  name: string
-  description: string
-  createdAt: string
+  id: CategoryDtoId
+  name: CategoryDtoName
+  description: CategoryDtoDescription
+  createdAt: CategoryDtoCreatedAt
 
-  constructor(id: number, name: string, description: string, createdAt: string) {
+  constructor(
+    id: CategoryDtoId,
+    name: CategoryDtoName,
+    description: CategoryDtoDescription,
+    createdAt: CategoryDtoCreatedAt,
+  ) {
     this.id = id
     this.name = name
     this.description = description
