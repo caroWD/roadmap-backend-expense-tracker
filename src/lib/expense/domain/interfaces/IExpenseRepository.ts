@@ -1,18 +1,18 @@
-import type { ExpenseDto } from '../ExpenseDto.js'
-import type { ExpenseCategoryId, ExpenseDtoId, ExpenseDtoMonth } from '../object_values/index.js'
+import type { Expense } from '../Expense.js'
+import type { ExpenseCategoryId, ExpenseDtoMonth, ExpenseId } from '../object_values/index.js'
 
 export interface IExpenseRepository {
-  Add(expense: ExpenseDto): Promise<ExpenseDto | null>
+  Add(expense: Expense): Promise<Expense | null>
 
-  Update(expense: ExpenseDto): Promise<ExpenseDto | null>
+  Update(expense: Expense): Promise<Expense | null>
 
-  Delete(id: ExpenseDtoId): Promise<ExpenseDto | null>
+  Delete(id: ExpenseId): Promise<Expense | null>
 
-  GetAll(): Promise<ExpenseDto[]>
+  GetAll(): Promise<Expense[]>
 
-  GetByCategory(categoryId: ExpenseCategoryId): Promise<ExpenseDto[]>
+  GetByCategory(categoryId: ExpenseCategoryId): Promise<Expense[]>
 
-  GetById(id: ExpenseDtoId): Promise<ExpenseDto | null>
+  GetById(id: ExpenseId): Promise<Expense | null>
 
   GetSummary(): Promise<number | null>
 
