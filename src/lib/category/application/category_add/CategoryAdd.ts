@@ -1,6 +1,11 @@
 import { Category } from '../../domain/Category.js'
 import type { ICategoryRepository } from '../../domain/interfaces/ICategoryRepository.js'
-import { CategoryId, CategoryName, CategoryDescription } from '../../domain/object_values/index.js'
+import {
+  CategoryId,
+  CategoryName,
+  CategoryDescription,
+  CategoryCreatedAt,
+} from '../../domain/object_values/index.js'
 
 export class CategoryAdd {
   private readonly _categoryRepository: ICategoryRepository
@@ -15,6 +20,7 @@ export class CategoryAdd {
         new CategoryId(id),
         new CategoryName(name),
         new CategoryDescription(description),
+        new CategoryCreatedAt(new Date()),
       ),
     )
   }
