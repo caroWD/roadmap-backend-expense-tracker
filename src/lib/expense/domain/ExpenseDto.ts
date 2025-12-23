@@ -1,16 +1,24 @@
+import {
+  ExpenseDtoId,
+  ExpenseDtoDescription,
+  ExpenseDtoAmount,
+  ExpenseDtoCategoryName,
+  ExpenseDtoCreatedAt,
+} from './object_values/index.js'
+
 export class ExpenseDto {
-  id: number
-  description: string
-  amount: number
-  categoryName: string
-  createdAt: string
+  id: ExpenseDtoId
+  description: ExpenseDtoDescription
+  amount: ExpenseDtoAmount
+  categoryName: ExpenseDtoCategoryName
+  createdAt: ExpenseDtoCreatedAt
 
   constructor(
-    id: number,
-    description: string,
-    amount: number,
-    categoryName: string,
-    createdAt: string,
+    id: ExpenseDtoId,
+    description: ExpenseDtoDescription,
+    amount: ExpenseDtoAmount,
+    categoryName: ExpenseDtoCategoryName,
+    createdAt: ExpenseDtoCreatedAt,
   ) {
     this.id = id
     this.description = description
