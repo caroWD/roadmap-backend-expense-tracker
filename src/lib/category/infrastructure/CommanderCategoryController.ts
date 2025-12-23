@@ -3,10 +3,15 @@ import {
   categoryNameSchema,
   categoryDescriptionSchema,
   categoryIdSchema,
-  type TCategory,
 } from './schemas/CategorySchema.js'
 import { ServiceContainer } from '../../shared/infrastructure/ServiceContainer.js'
 import type { Category } from '../domain/Category.js'
+import { CategoryDto } from '../domain/CategoryDto.js'
+import { CategoryDtoId } from '../domain/object_values/CategoryDtoId.js'
+import { CategoryDtoName } from '../domain/object_values/CategoryDtoName.js'
+import { CategoryDtoDescription } from '../domain/object_values/CategoryDtoDescription.js'
+import { CategoryDtoCreatedAt } from '../domain/object_values/CategoryDtoCreatedAt.js'
+import type { TCategoryDto } from './schemas/CategoryDtoSchema.js'
 
 export class CommanderCategoryController {
   async Add(name?: string, description?: string): Promise<void> {
@@ -90,14 +95,25 @@ export class CommanderCategoryController {
 
       if (!categories.length) throw new Error('No categories found')
 
-      const categoriesMapped: TCategory[] = categories.map((category) => ({
-        id: category.id.value,
-        name: category.name.value,
-        description: category.description.value,
-        createdAt: category.createdAt.value,
-      }))
+      const categoriesMapped: CategoryDto[] = categories.map(
+        (category) =>
+          new CategoryDto(
+            new CategoryDtoId(category.id.value),
+            new CategoryDtoName(category.name.value),
+            new CategoryDtoDescription(category.description.value),
+            new CategoryDtoCreatedAt(category.createdAt.value.toLocaleDateString('en-US')),
+          ),
+      )
 
-      console.table(categoriesMapped, ['id', 'name', 'description'])
+      console.table(
+        categoriesMapped.map<TCategoryDto>((category) => ({
+          id: category.id.value,
+          name: category.name.value,
+          description: category.description.value,
+          createdAt: category.createdAt.value,
+        })),
+        ['id', 'name', 'description'],
+      )
     } catch (error) {
       if (error instanceof ZodError) {
         console.error('Validation error:', error.message)
