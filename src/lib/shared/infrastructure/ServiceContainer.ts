@@ -10,6 +10,7 @@ import { ExpenseAdd } from '../../expense/application/expense_add/ExpenseAdd.js'
 import { ExpenseDelete } from '../../expense/application/expense_delete/ExpenseDelete.js'
 import { ExpenseGetAll } from '../../expense/application/expense_get_all/ExpenseGetAll.js'
 import { ExpenseGetByCategory } from '../../expense/application/expense_get_by_category/ExpenseGetByCategory.js'
+import { ExpenseGetById } from '../../expense/application/expense_get_by_id/ExpenseGetById.js'
 import { ExpenseGetSummary } from '../../expense/application/expense_get_summary/ExpenseGetSummary.js'
 import { ExpenseGetSummaryByMonth } from '../../expense/application/expense_get_summary_by_month/ExpenseGetSummaryByMonth.js'
 import { ExpenseUpdate } from '../../expense/application/expense_update/ExpenseUpdate.js'
@@ -39,6 +40,7 @@ export const ServiceContainer = {
     update: new ExpenseUpdate(expenseRepository, categoryRepository),
     delete: new ExpenseDelete(expenseRepository, categoryRepository),
     getAll: new ExpenseGetAll(expenseRepository, categoryRepository),
+    getById: new ExpenseGetById(expenseRepository, categoryRepository),
     getByCategory: new ExpenseGetByCategory(expenseRepository, categoryRepository),
     getSummary: new ExpenseGetSummary(expenseRepository),
     getSummaryByMonth: new ExpenseGetSummaryByMonth(expenseRepository),
