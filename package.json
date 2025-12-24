@@ -5,7 +5,7 @@
   "main": "main.js",
   "type": "module",
   "scripts": {
-    "build": "pnpm tsc",
+    "build": "pnpm tsc && node ./dist/repository/fs/fsRepository.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
