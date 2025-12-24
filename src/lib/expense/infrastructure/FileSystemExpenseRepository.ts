@@ -1,5 +1,4 @@
-import type { FileSystem } from '../../file_system/infrastructure/FileSystem.js'
-import { ServiceContainer } from '../../shared/infrastructure/ServiceContainer.js'
+import { FileSystem } from '../../file_system/infrastructure/FileSystem.js'
 import { Expense } from '../domain/Expense.js'
 import type { IExpenseRepository } from '../domain/interfaces/IExpenseRepository.js'
 import { ExpenseCategoryId } from '../domain/object_values/ExpenseCategoryId.js'
@@ -13,7 +12,11 @@ import {
 import { type TExpense, expenseSchema } from './schemas/ExpenseSchema.js'
 
 export class FileSystemExpenseRepository implements IExpenseRepository {
-  private readonly _fileSystem: FileSystem = ServiceContainer.fileSystem.expenses
+  private readonly _fileSystem: FileSystem
+
+  constructor(fileName: string) {
+    this._fileSystem = new FileSystem(fileName, 'json', '../../../repository/fs')
+  }
 
   async Add(expense: Expense): Promise<Expense | null> {
     const expenses: Expense[] = await this.ReadFile()

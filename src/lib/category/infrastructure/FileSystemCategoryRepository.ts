@@ -6,12 +6,16 @@ import {
   CategoryId,
   CategoryName,
 } from '../domain/object_values/index.js'
-import { ServiceContainer } from '../../shared/infrastructure/ServiceContainer.js'
 import { type TCategory, categorySchema } from './schemas/CategorySchema.js'
 import { CategoryIdNotFoundError } from '../domain/errors/index.js'
+import { FileSystem } from '../../file_system/infrastructure/FileSystem.js'
 
 export class FileSystemCategoryRepository implements ICategoryRepository {
-  private readonly _fileSystem = ServiceContainer.fileSystem.categories
+  private readonly _fileSystem: FileSystem
+
+  constructor(fileName: string) {
+    this._fileSystem = new FileSystem(fileName, 'json', '../../../repository/fs')
+  }
 
   async Add(category: Category): Promise<void> {
     const categories: Category[] = await this.ReadFile()

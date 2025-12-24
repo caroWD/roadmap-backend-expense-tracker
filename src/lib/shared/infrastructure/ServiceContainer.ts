@@ -16,17 +16,11 @@ import { ExpenseGetSummaryByMonth } from '../../expense/application/expense_get_
 import { ExpenseUpdate } from '../../expense/application/expense_update/ExpenseUpdate.js'
 import type { IExpenseRepository } from '../../expense/domain/interfaces/IExpenseRepository.js'
 import { FileSystemExpenseRepository } from '../../expense/infrastructure/FileSystemExpenseRepository.js'
-import { FileSystem } from '../../file_system/infrastructure/FileSystem.js'
 
-const categoryRepository: ICategoryRepository = new FileSystemCategoryRepository()
-const expenseRepository: IExpenseRepository = new FileSystemExpenseRepository()
+const categoryRepository: ICategoryRepository = new FileSystemCategoryRepository('category')
+const expenseRepository: IExpenseRepository = new FileSystemExpenseRepository('expenses')
 
 export const ServiceContainer = {
-  fileSystem: {
-    categories: new FileSystem('category', 'json', '../../../repository/fs'),
-    expenses: new FileSystem('expenses', 'json', '../../../repository/fs'),
-    budgets: new FileSystem('budgets', 'json', '../../../repository/fs'),
-  },
   category: {
     add: new CategoryAdd(categoryRepository),
     update: new CategoryUpdate(categoryRepository),
