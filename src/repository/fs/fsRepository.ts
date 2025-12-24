@@ -86,13 +86,9 @@ const createFSRepository = async () => {
   try {
     const directoryURL: URL = new URL('./', import.meta.url)
 
-    console.log(directoryURL.pathname)
-
     await access(directoryURL.pathname, constants.W_OK | constants.W_OK)
 
     const fileURL: URL = new URL('./category.json', import.meta.url)
-
-    console.log(fileURL.pathname)
 
     await writeFile(fileURL.pathname, JSON.stringify(categoriesDefault), { encoding: 'utf-8' })
 
