@@ -16,12 +16,60 @@ program.commandsGroup('Expense').description('Add, update, delete, list and summ
 program
   .command('add')
   .description('Add a new expense with description, amount and category (optional)')
-  .requiredOption('-d, --description <string>', 'Expense description')
-  .requiredOption('-a, --amount <number>', 'Expense amount')
+  .option('-d, --description <string>', 'Expense description')
+  .option('-a, --amount <number>', 'Expense amount')
   .option('-c, --category <Category>', 'Expense category (optional)', 'others')
   .action(
     async (options) =>
       await expenseController.Add(options.description, options.amount, options.category),
+  )
+
+program
+  .command('update')
+  .description('Update an expense with id, description, amount, category an date')
+  .option('-i, --id <number>', 'Expense id')
+  .option('-d, --description <string>', 'Expense description')
+  .option('-a, --amount <number>', 'Expense amount')
+  .option('-c, --category <Category>', 'Expense category')
+  .option('--date <Date>', 'Expense date with format: YYYY-MM-DD')
+  .action(
+    async (options) =>
+      await expenseController.Update(
+        options.id,
+        options.description,
+        options.amount,
+        options.category,
+        options.date,
+      ),
+  )
+
+program
+  .command('delete')
+  .description('Delete an expense with id')
+  .option('-i, --id <number>', 'Expense id')
+  .action(async (option) => await expenseController.Delete(option.id))
+
+program
+  .command('list')
+  .description('List all expenses or list expenses by category')
+  .option('-c, --category <Category>', 'Expense category')
+  .action(async (option) =>
+    option.category
+      ? await expenseController.GetByCategory(option.category)
+      : await expenseController.GetAll(),
+  )
+
+program
+  .command('summary')
+  .description('View a summary of all expenses')
+  .option(
+    '-m, --month <number>',
+    'Define a month of the current year with its corresponding number value (optional). Enter a number between 1 and 12.',
+  )
+  .action(async (option) =>
+    option.month
+      ? await expenseController.GetSummaryByMonth(option.month)
+      : await expenseController.GetSummary(),
   )
 
 program
@@ -31,8 +79,30 @@ program
 program
   .command('add-category')
   .description('Add a new category with name and description (optional)')
-  .requiredOption('-n, --name <string>', 'Category name')
+  .option('-n, --name <string>', 'Category name')
   .option('-d, --description <string>', 'Category description')
   .action(async (options) => await categoryController.Add(options.name, options.description))
+
+program
+  .command('update-category')
+  .description('Update a category with id, name and description')
+  .option('-i, --id <number>', 'Category id')
+  .option('-n, --name <string>', 'Category name')
+  .option('-d, --description <string>', 'Category description')
+  .action(
+    async (options) =>
+      await categoryController.Update(options.id, options.name, options.description),
+  )
+
+program
+  .command('delete-category')
+  .description('Delete a category with id')
+  .option('-i, --id <number>', 'Category id')
+  .action(async (option) => await categoryController.Delete(option.id))
+
+program
+  .command('list-category')
+  .description('List all categories')
+  .action(async () => await categoryController.GetAll())
 
 program.parse()
