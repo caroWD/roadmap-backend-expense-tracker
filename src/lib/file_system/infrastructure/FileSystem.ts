@@ -23,7 +23,7 @@ export class FileSystem implements IFileSystem {
     if (!directoryExists) return '[]'
 
     const fileURL: URL = new URL(
-      `${this._directory}/${this._fileName},${this._extension}`,
+      `${this._directory}/${this._fileName}.${this._extension}`,
       import.meta.url,
     )
 
@@ -42,7 +42,7 @@ export class FileSystem implements IFileSystem {
     if (!directoryExists) await mkdir(directoryURL.pathname, { recursive: true })
 
     const fileURL: URL = new URL(
-      `${this._directory}/${this._fileName},${this._extension}`,
+      `${this._directory}/${this._fileName}.${this._extension}`,
       import.meta.url,
     )
 
