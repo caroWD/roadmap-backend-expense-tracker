@@ -11,7 +11,7 @@ export class CategoryDescription {
       this.value = 'Category without description'
     }
 
-    if (this.value.length < 22) {
+    if (this.value.length < 10) {
       throw new Error('Category description must be at least 22 characters long')
     }
 
