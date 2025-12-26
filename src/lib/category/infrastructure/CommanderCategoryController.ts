@@ -101,7 +101,7 @@ export class CommanderCategoryController {
             new CategoryDtoId(category.id.value),
             new CategoryDtoName(category.name.value),
             new CategoryDtoDescription(category.description.value),
-            new CategoryDtoCreatedAt(category.createdAt.value.toLocaleDateString('en-US')),
+            new CategoryDtoCreatedAt(category.createdAt.value.toLocaleDateString('en-CA')),
           ),
       )
 

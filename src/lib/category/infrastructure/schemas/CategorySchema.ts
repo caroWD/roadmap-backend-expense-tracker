@@ -8,11 +8,11 @@ export const categoryNameSchema = z.string().min(2).max(50)
 
 export type TCategoryName = z.infer<typeof categoryNameSchema>
 
-export const categoryDescriptionSchema = z.string().min(22).max(255).optional()
+export const categoryDescriptionSchema = z.string().min(10).max(255).optional()
 
 export type TCategoryDescription = z.infer<typeof categoryDescriptionSchema>
 
-export const categoryCreatedAtSchema = z.date()
+export const categoryCreatedAtSchema = z.iso.datetime()
 
 export type TCategoryCreatedAt = z.infer<typeof categoryCreatedAtSchema>
 

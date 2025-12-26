@@ -92,7 +92,7 @@ export class FileSystemCategoryRepository implements ICategoryRepository {
           new CategoryId(category.id),
           new CategoryName(category.name),
           new CategoryDescription(category.description as string),
-          new CategoryCreatedAt(category.createdAt),
+          new CategoryCreatedAt(new Date(category.createdAt)),
         ),
     )
   }
