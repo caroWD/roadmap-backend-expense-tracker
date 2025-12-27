@@ -65,7 +65,7 @@ export class ExpenseAdd {
       new ExpenseDtoDescription(expenseAdded.description.value),
       new ExpenseDtoAmount(expenseAdded.amount.value),
       new ExpenseDtoCategoryName(categoryExists.name.value),
-      new ExpenseDtoCreatedAt(expenseAdded.createdAt.value.toLocaleDateString('en-US')),
+      new ExpenseDtoCreatedAt(expenseAdded.createdAt.value.toLocaleDateString('en-CA')),
     )
   }
 }
