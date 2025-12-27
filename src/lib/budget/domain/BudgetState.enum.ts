@@ -1,0 +1,4 @@
+export enum BUDGET_STATE {
+  DESACTIVED,
+  ACTIVED,
+}
