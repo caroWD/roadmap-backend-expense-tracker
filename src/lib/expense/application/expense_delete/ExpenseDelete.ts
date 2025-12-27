@@ -41,7 +41,7 @@ export class ExpenseDelete {
       new ExpenseDtoDescription(expenseDeleted.description.value),
       new ExpenseDtoAmount(expenseDeleted.amount.value),
       new ExpenseDtoCategoryName(category.name.value),
-      new ExpenseDtoCreatedAt(expenseDeleted.createdAt.value.toLocaleDateString('en-US')),
+      new ExpenseDtoCreatedAt(expenseDeleted.createdAt.value.toLocaleDateString('en-CA')),
     )
   }
 }

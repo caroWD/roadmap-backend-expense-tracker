@@ -50,7 +50,7 @@ export class ExpenseGetByCategory {
           new ExpenseDtoDescription(expense.description.value),
           new ExpenseDtoAmount(expense.amount.value),
           new ExpenseDtoCategoryName(category.name.value),
-          new ExpenseDtoCreatedAt(expense.createdAt.value.toLocaleDateString('en-US')),
+          new ExpenseDtoCreatedAt(expense.createdAt.value.toLocaleDateString('en-CA')),
         )
       }),
     )
