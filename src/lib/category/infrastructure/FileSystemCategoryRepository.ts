@@ -20,7 +20,7 @@ export class FileSystemCategoryRepository implements ICategoryRepository {
   async Add(category: Category): Promise<void> {
     const categories: Category[] = await this.ReadFile()
 
-    const lastCategory: Category | undefined = categories.pop()
+    const lastCategory: Category | undefined = categories[categories.length - 1]
 
     const lastCategoryId: number = lastCategory ? lastCategory.id.value : 0
 
