@@ -29,7 +29,7 @@ export class ExpenseGetByCategory {
       new CategoryName(categoryName),
     )
 
-    if (!category) throw new CategoryNotFoundError('Category not found for deleted expense')
+    if (!category) throw new CategoryNotFoundError('Category not found')
 
     const expenses: Expense[] = await this._expenseRepository.GetByCategory(
       new ExpenseCategoryId(category.id.value),
@@ -40,10 +40,10 @@ export class ExpenseGetByCategory {
     return await Promise.all(
       expenses.map(async (expense) => {
         const category: Category | null = await this._categoryRepository.GetById(
-          new CategoryId(expense.id.value),
+          new CategoryId(expense.categoryId.value),
         )
 
-        if (!category) throw new CategoryNotFoundError('Category not found for deleted expense')
+        if (!category) throw new CategoryNotFoundError('Category not found')
 
         return new ExpenseDto(
           new ExpenseDtoId(expense.id.value),
