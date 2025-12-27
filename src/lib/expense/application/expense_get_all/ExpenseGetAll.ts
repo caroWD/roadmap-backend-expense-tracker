@@ -34,7 +34,7 @@ export class ExpenseGetAll {
           new CategoryId(expense.categoryId.value),
         )
 
-        if (!category) throw new CategoryNotFoundError('Category not found for deleted expense')
+        if (!category) throw new CategoryNotFoundError('Category not found')
 
         return new ExpenseDto(
           new ExpenseDtoId(expense.id.value),
