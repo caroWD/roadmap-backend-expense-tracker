@@ -1,3 +1,9 @@
+import { BudgetAdd } from '../../budget/application/budget_add/BudgetAdd.js'
+import { BudgetChangeState } from '../../budget/application/budget_change_state/BudgetChangeState.js'
+import { BudgetGetAll } from '../../budget/application/budget_get_all/BudgetGetAll.js'
+import { BudgetGetById } from '../../budget/application/budget_get_by_id/BudgetGetById.js'
+import type { IBudgetRepository } from '../../budget/domain/interfaces/IBudgetRepository.js'
+import { FileSystemBudgetRepository } from '../../budget/infrastructure/FileSystemBudgetRepository.js'
 import { CategoryAdd } from '../../category/application/category_add/CategoryAdd.js'
 import { CategoryDelete } from '../../category/application/category_delete/CategoryDelete.js'
 import { CategoryGetAll } from '../../category/application/category_get_all/CategoryGetAll.js'
@@ -19,6 +25,7 @@ import { FileSystemExpenseRepository } from '../../expense/infrastructure/FileSy
 
 const categoryRepository: ICategoryRepository = new FileSystemCategoryRepository('category')
 const expenseRepository: IExpenseRepository = new FileSystemExpenseRepository('expenses')
+const budgetRepository: IBudgetRepository = new FileSystemBudgetRepository('budgets')
 
 export const ServiceContainer = {
   category: {
@@ -38,5 +45,11 @@ export const ServiceContainer = {
     getByCategory: new ExpenseGetByCategory(expenseRepository, categoryRepository),
     getSummary: new ExpenseGetSummary(expenseRepository),
     getSummaryByMonth: new ExpenseGetSummaryByMonth(expenseRepository),
+  },
+  budget: {
+    add: new BudgetAdd(budgetRepository),
+    changeState: new BudgetChangeState(budgetRepository),
+    getAll: new BudgetGetAll(budgetRepository),
+    getById: new BudgetGetById(budgetRepository),
   },
 }
