@@ -21,6 +21,10 @@ export class FileSystemExpenseRepository implements IExpenseRepository {
   async Add(expense: Expense): Promise<Expense | null> {
     const expenses: Expense[] = await this.ReadFile()
 
+    const lastExpense: Expense | undefined = expenses[expenses.length - 1]
+
+    expense.id.value = lastExpense ? lastExpense.id.value + 1 : 1
+
     expenses.push(expense)
 
     const expensesMapped: TExpense[] = await Promise.all(
