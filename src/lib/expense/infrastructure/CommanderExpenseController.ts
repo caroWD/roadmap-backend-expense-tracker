@@ -32,7 +32,7 @@ export class CommanderExpenseController {
         validDescription,
         validAmount,
         validCategory,
-        new Date().toLocaleDateString('en-US'),
+        new Date().toLocaleDateString('en-CA'),
       )
 
       console.log(`Expense added successfully (ID: ${expenseAdded.id.value})`)

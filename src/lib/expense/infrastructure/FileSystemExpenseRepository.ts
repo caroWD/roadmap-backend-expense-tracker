@@ -23,7 +23,11 @@ export class FileSystemExpenseRepository implements IExpenseRepository {
 
     expenses.push(expense)
 
-    const isWrited: boolean = await this._fileSystem.WriteFile(JSON.stringify(expenses))
+    const expensesMapped: TExpense[] = await Promise.all(
+      expenses.map(async (expense) => await this.MappedToTExpense(expense)),
+    )
+
+    const isWrited: boolean = await this._fileSystem.WriteFile(JSON.stringify(expensesMapped))
 
     if (!isWrited) return null
 
@@ -39,7 +43,11 @@ export class FileSystemExpenseRepository implements IExpenseRepository {
 
     expenses[index] = expense
 
-    const isWrited: boolean = await this._fileSystem.WriteFile(JSON.stringify(expenses))
+    const expensesMapped: TExpense[] = await Promise.all(
+      expenses.map(async (expense) => await this.MappedToTExpense(expense)),
+    )
+
+    const isWrited: boolean = await this._fileSystem.WriteFile(JSON.stringify(expensesMapped))
 
     if (!isWrited) return null
 
@@ -59,7 +67,11 @@ export class FileSystemExpenseRepository implements IExpenseRepository {
       (e) => e.id.value === expenseForDelete.id.value,
     )
 
-    const isWrited: boolean = await this._fileSystem.WriteFile(JSON.stringify(expensesFiltered))
+    const expensesMapped: TExpense[] = await Promise.all(
+      expensesFiltered.map(async (expense) => await this.MappedToTExpense(expense)),
+    )
+
+    const isWrited: boolean = await this._fileSystem.WriteFile(JSON.stringify(expensesMapped))
 
     if (!isWrited) return null
 
@@ -127,5 +139,15 @@ export class FileSystemExpenseRepository implements IExpenseRepository {
           new ExpenseCreatedAt(new Date(expense.createdAt)),
         ),
     )
+  }
+
+  private async MappedToTExpense(expense: Expense): Promise<TExpense> {
+    return {
+      id: expense.id.value,
+      description: expense.description.value,
+      amount: expense.amount.value,
+      categoryId: expense.categoryId.value,
+      createdAt: expense.createdAt.value.toISOString(),
+    }
   }
 }
