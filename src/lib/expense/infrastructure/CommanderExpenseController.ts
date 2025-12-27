@@ -266,7 +266,7 @@ export class CommanderExpenseController {
                               ? 'November'
                               : 'December'
 
-      console.log(`Total expenses for ${monthMapped}: ${summary}`)
+      console.log(`Total expenses for ${monthMapped}: $${summary}`)
     } catch (error) {
       if (error instanceof ZodError) {
         console.error('Validation error:', error.message)
