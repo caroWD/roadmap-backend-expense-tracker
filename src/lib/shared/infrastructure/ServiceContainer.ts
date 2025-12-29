@@ -1,5 +1,6 @@
 import { BudgetAdd } from '../../budget/application/budget_add/BudgetAdd.js'
 import { BudgetChangeState } from '../../budget/application/budget_change_state/BudgetChangeState.js'
+import { BudgetGetActived } from '../../budget/application/budget_get_actived/BudgetGetActived.js'
 import { BudgetGetAll } from '../../budget/application/budget_get_all/BudgetGetAll.js'
 import { BudgetGetById } from '../../budget/application/budget_get_by_id/BudgetGetById.js'
 import type { IBudgetRepository } from '../../budget/domain/interfaces/IBudgetRepository.js'
@@ -51,5 +52,6 @@ export const ServiceContainer = {
     changeState: new BudgetChangeState(budgetRepository),
     getAll: new BudgetGetAll(budgetRepository),
     getById: new BudgetGetById(budgetRepository),
+    getActived: new BudgetGetActived(budgetRepository),
   },
 }
