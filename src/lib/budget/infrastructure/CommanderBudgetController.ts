@@ -9,7 +9,7 @@ export class CommanderBudgetController {
     try {
       if (!amount) throw new Error('BudgetAmount is required')
 
-      const validAmount: number = await budgetAmountSchema.parseAsync(amount)
+      const validAmount: number = await budgetAmountSchema.parseAsync(Number(amount))
 
       const validState: BudgetDtoStateType = 'actived'
 
