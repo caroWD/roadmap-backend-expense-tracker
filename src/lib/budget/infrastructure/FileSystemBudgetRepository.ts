@@ -1,5 +1,6 @@
 import { FileSystem } from '../../file_system/infrastructure/FileSystem.js'
 import { Budget } from '../domain/Budget.js'
+import { BUDGET_STATE } from '../domain/BudgetState.enum.js'
 import type { IBudgetRepository } from '../domain/interfaces/IBudgetRepository.js'
 import { BudgetAmount } from '../domain/object_values/BudgetAmount.js'
 import { BudgetCreatedAt } from '../domain/object_values/BudgetCreatedAt.js'
@@ -60,6 +61,12 @@ export class FileSystemBudgetRepository implements IBudgetRepository {
     const budgets: Budget[] = await this.ReadFile()
 
     return budgets.find((budget) => budget.id.value === id.value) || null
+  }
+
+  async GetActived(): Promise<Budget | null> {
+    const budgets: Budget[] = await this.ReadFile()
+
+    return budgets.find((budget) => budget.state.value === BUDGET_STATE.ACTIVED) || null
   }
 
   private async ReadFile(): Promise<Budget[]> {

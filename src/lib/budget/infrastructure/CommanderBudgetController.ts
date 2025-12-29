@@ -33,7 +33,7 @@ export class CommanderBudgetController {
     }
   }
 
-  async ChangeState(id?: number): Promise<void> {
+  async ChangeState(id?: string): Promise<void> {
     try {
       if (!id) throw new Error('BudgetId is required')
 

@@ -48,4 +48,8 @@ export class InMemoryBudgetRepository implements IBudgetRepository {
   async GetById(id: BudgetId): Promise<Budget | null> {
     return this.budgets.find((budget) => budget.id.value === id.value) || null
   }
+
+  async GetActived(): Promise<Budget | null> {
+    return this.budgets.find((budget) => budget.state.value === BUDGET_STATE.ACTIVED) || null
+  }
 }
