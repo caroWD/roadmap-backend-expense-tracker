@@ -1,10 +1,12 @@
 import { Command } from '@commander-js/extra-typings'
 import { CommanderExpenseController } from './lib/expense/infrastructure/CommanderExpenseController.js'
 import { CommanderCategoryController } from './lib/category/infrastructure/CommanderCategoryController.js'
+import { CommanderBudgetController } from './lib/budget/infrastructure/CommanderBudgetController.js'
 
 const program: Command = new Command()
 const expenseController: CommanderExpenseController = new CommanderExpenseController()
 const categoryController: CommanderCategoryController = new CommanderCategoryController()
+const budgetController: CommanderBudgetController = new CommanderBudgetController()
 
 program
   .name('Expense Tracker CLI')
@@ -104,5 +106,24 @@ program
   .command('list-category')
   .description('List all categories')
   .action(async () => await categoryController.GetAll())
+
+program.commandsGroup('Budget')
+
+program
+  .command('add-budget')
+  .description('Add a new budget with amount')
+  .option('-a, --amount <number>', 'Budget amount')
+  .action(async (option) => await budgetController.Add(option.amount))
+
+program
+  .command('active-budget')
+  .description('Active a budget with id')
+  .option('-i, --id <number>', 'Budget id')
+  .action(async (option) => await budgetController.ChangeState(option.id))
+
+program
+  .command('list-budgets')
+  .description('List all budgets')
+  .action(async () => await budgetController.GetAll())
 
 program.parse()
