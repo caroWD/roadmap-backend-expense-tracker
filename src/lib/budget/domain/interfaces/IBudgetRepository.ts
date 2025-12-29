@@ -9,4 +9,6 @@ export interface IBudgetRepository {
   GetAll(): Promise<Budget[]>
 
   GetById(id: BudgetId): Promise<Budget | null>
+
+  GetActived(): Promise<Budget | null>
 }
