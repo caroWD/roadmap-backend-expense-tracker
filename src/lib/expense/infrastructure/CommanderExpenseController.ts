@@ -47,10 +47,10 @@ export class CommanderExpenseController {
 
       if (!budget) return
 
-      if (summary <= budget) {
+      if (summary >= budget) {
         console.warn('Alert: you have reached your monthly budget limit')
 
-        console.log(`Summary: ${summary} | Budget: ${budget}`)
+        console.log(`Summary: $${summary} | Budget: $${budget}`)
       }
     } catch (error) {
       if (error instanceof ZodError) {
