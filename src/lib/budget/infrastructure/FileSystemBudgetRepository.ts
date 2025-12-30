@@ -18,14 +18,24 @@ export class FileSystemBudgetRepository implements IBudgetRepository {
   async Add(budget: Budget): Promise<Budget | null> {
     const budgets: Budget[] = await this.ReadFile()
 
-    const lastBudget: Budget | undefined = budgets[budgets.length - 1]
+    const disactivedBudgets: Budget[] = budgets.map(
+      (budget) =>
+        new Budget(
+          new BudgetId(budget.id.value),
+          new BudgetAmount(budget.amount.value),
+          new BudgetState(BUDGET_STATE.DESACTIVED),
+          new BudgetCreatedAt(budget.createdAt.value),
+        ),
+    )
+
+    const lastBudget: Budget | undefined = disactivedBudgets[disactivedBudgets.length - 1]
 
     budget.id = new BudgetId(lastBudget ? lastBudget.id.value + 1 : 1)
 
-    budgets.push(budget)
+    disactivedBudgets.push(budget)
 
     const budgetsMapped: BudgetType[] = await Promise.all(
-      budgets.map(async (b) => await this.MapToBudgetType(b)),
+      disactivedBudgets.map(async (b) => await this.MapToBudgetType(b)),
     )
 
     const isWrited: boolean = await this._fileSystem.WriteFile(JSON.stringify(budgetsMapped))
@@ -38,14 +48,24 @@ export class FileSystemBudgetRepository implements IBudgetRepository {
 
     if (!budgets.length) return null
 
-    const index: number = budgets.findIndex((b) => b.id.value === budget.id.value)
-
-    if (index === -1) return null
-
-    budgets[index] = budget
+    const disactivedBudgets: Budget[] = budgets.map((b) =>
+      b.id.value === budget.id.value
+        ? new Budget(
+            new BudgetId(b.id.value),
+            new BudgetAmount(b.amount.value),
+            new BudgetState(BUDGET_STATE.ACTIVED),
+            new BudgetCreatedAt(b.createdAt.value),
+          )
+        : new Budget(
+            new BudgetId(b.id.value),
+            new BudgetAmount(b.amount.value),
+            new BudgetState(BUDGET_STATE.DESACTIVED),
+            new BudgetCreatedAt(b.createdAt.value),
+          ),
+    )
 
     const budgetsMapped: BudgetType[] = await Promise.all(
-      budgets.map(async (b) => await this.MapToBudgetType(b)),
+      disactivedBudgets.map(async (b) => await this.MapToBudgetType(b)),
     )
 
     const isWrited: boolean = await this._fileSystem.WriteFile(JSON.stringify(budgetsMapped))
