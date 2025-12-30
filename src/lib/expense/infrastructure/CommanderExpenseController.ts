@@ -36,6 +36,22 @@ export class CommanderExpenseController {
       )
 
       console.log(`Expense added successfully (ID: ${expenseAdded.id.value})`)
+
+      const summary: number = await ServiceContainer.expense.getSummaryByMonth.Run(
+        new Date().getMonth() + 1,
+      )
+
+      if (!summary) return
+
+      const budget: number = await ServiceContainer.budget.getActived.Run()
+
+      if (!budget) return
+
+      if (summary <= budget) {
+        console.warn('Alert: you have reached your monthly budget limit')
+
+        console.log(`Summary: ${summary} | Budget: ${budget}`)
+      }
     } catch (error) {
       if (error instanceof ZodError) {
         console.error('Validation error:', error.message)
