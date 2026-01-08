@@ -36,7 +36,6 @@
   "dependencies": {
     "commander": "^14.0.2",
     "csv-stringify": "^6.6.0",
-    "sqlite3": "^5.1.7",
     "zod": "^4.2.1"
   }
 }
