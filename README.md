@@ -48,6 +48,12 @@ git clone https://github.com/YOUR-USERNAME/YOUR-REPOSITORY
 pnpm install
 ```
 
+### Build CLI
+
+```bash
+pnpm run build
+```
+
 ### Create global bin directory
 
 ```bash
