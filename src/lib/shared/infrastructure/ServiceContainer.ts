@@ -13,6 +13,9 @@ import { CategoryGetByName } from '../../category/application/category_get_by_na
 import { CategoryUpdate } from '../../category/application/category_update/CategoryUpdate.js'
 import type { ICategoryRepository } from '../../category/domain/interfaces/ICategoryRepository.js'
 import { FileSystemCategoryRepository } from '../../category/infrastructure/FileSystemCategoryRepository.js'
+import { CSVExport } from '../../csv/application/csv_export/CSVExport.js'
+import type { ICSV } from '../../csv/domain/ICSV.js'
+import { CSV } from '../../csv/infrastructure/CSV.js'
 import { ExpenseAdd } from '../../expense/application/expense_add/ExpenseAdd.js'
 import { ExpenseDelete } from '../../expense/application/expense_delete/ExpenseDelete.js'
 import { ExpenseGetAll } from '../../expense/application/expense_get_all/ExpenseGetAll.js'
@@ -23,10 +26,12 @@ import { ExpenseGetSummaryByMonth } from '../../expense/application/expense_get_
 import { ExpenseUpdate } from '../../expense/application/expense_update/ExpenseUpdate.js'
 import type { IExpenseRepository } from '../../expense/domain/interfaces/IExpenseRepository.js'
 import { FileSystemExpenseRepository } from '../../expense/infrastructure/FileSystemExpenseRepository.js'
+import { FileSystem } from '../../file_system/infrastructure/FileSystem.js'
 
 const categoryRepository: ICategoryRepository = new FileSystemCategoryRepository('category')
 const expenseRepository: IExpenseRepository = new FileSystemExpenseRepository('expenses')
 const budgetRepository: IBudgetRepository = new FileSystemBudgetRepository('budgets')
+const csv: ICSV = new CSV(new FileSystem('expenses', 'csv', '../../../repository/fs'))
 
 export const ServiceContainer = {
   category: {
@@ -53,5 +58,8 @@ export const ServiceContainer = {
     getAll: new BudgetGetAll(budgetRepository),
     getById: new BudgetGetById(budgetRepository),
     getActived: new BudgetGetActived(budgetRepository),
+  },
+  csv: {
+    export: new CSVExport(csv),
   },
 }

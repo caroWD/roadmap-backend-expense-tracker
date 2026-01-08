@@ -293,4 +293,10 @@ export class CommanderExpenseController {
       }
     }
   }
+
+  async Export(): Promise<void> {
+    const expenses: ExpenseDto[] = await ServiceContainer.expense.getAll.Run()
+
+    return await ServiceContainer.csv.export.Run(expenses)
+  }
 }

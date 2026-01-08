@@ -75,6 +75,11 @@ program
   )
 
 program
+  .command('export')
+  .description('Export expenses to a CSV file')
+  .action(async () => await expenseController.Export())
+
+program
   .commandsGroup('Expense Category')
   .description('Add, update, delete and list expense categories')
 
