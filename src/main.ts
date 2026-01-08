@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 import { Command } from '@commander-js/extra-typings'
 import { CommanderExpenseController } from './lib/expense/infrastructure/CommanderExpenseController.js'
 import { CommanderCategoryController } from './lib/category/infrastructure/CommanderCategoryController.js'
